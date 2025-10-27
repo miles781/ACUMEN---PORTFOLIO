@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 const Services = () => {
   const servicesData = [
     {
-      icon: assets.mobile_icon,
+      icon: assets.logo,
       title: 'Swift Empire LTD',
       subtitle: 'Main Platform',
       desc: 'Your central hub for digital innovation, fashion, and identity services. Connecting all ventures under one ecosystem.',
@@ -18,7 +18,7 @@ const Services = () => {
       badge: '🏠 Main Hub'
     },
     {
-      icon: assets.mongodb,
+      icon: assets.ui_icon,
       title: 'Smart VTU & Utility Services',
       subtitle: 'Swiftsub Solution Hub',
       desc: 'Enjoy seamless airtime, data, cable TV, and electricity payments — fast and reliable service nationwide.',
@@ -28,7 +28,7 @@ const Services = () => {
       badge: '🚀 Active'
     },
     {
-      icon: assets.firebase,
+      icon: assets.mongodb, 
       title: 'Dripforge Luxury Boutique',
       subtitle: 'Premium Fashion Retail',
       desc: 'Step into style with clothing, bags, and accessories designed for daily confidence and lasting impressions.',
@@ -95,7 +95,7 @@ const Services = () => {
       transition={{ duration: 1 }}
       id="services"
       className="w-full py-20 sm:py-28 scroll-mt-20 bg-gradient-to-b from-transparent via-gray-50/30 to-transparent dark:via-gray-900/20"
-      viewport={{ once: true, margin: "-50px" }} // Added once: true for performance
+      viewport={{ once: true, margin: "-50px" }}
     >
       <div className="max-w-6xl mx-auto px-6 sm:px-12">
         {/* Section Header */}
@@ -159,9 +159,8 @@ const Services = () => {
               key={index}
               variants={cardVariants}
               whileHover={{ 
-                scale: service.isMain ? 1.02 : 1.03, // Reduced scale values
-                y: service.isMain ? -4 : -2, // Reduced y movement
-                // Removed rotateY to fix the error
+                scale: service.isMain ? 1.02 : 1.03,
+                y: service.isMain ? -4 : -2,
               }}
               className={`group relative border border-gray-300 dark:border-gray-600 rounded-2xl cursor-pointer p-8 transition-all duration-300 backdrop-blur-sm
                 ${service.isMain 
@@ -169,11 +168,11 @@ const Services = () => {
                   : 'bg-white/50 dark:bg-gray-800/50 shadow-lg'
                 } 
                 hover:shadow-xl hover:bg-white dark:hover:bg-gray-800`}
-              tabIndex="0" // Added for accessibility
-              role="article" // Added for semantics
-              aria-label={`${service.title} - ${service.subtitle}`} // Added for accessibility
+              tabIndex="0"
+              role="article"
+              aria-label={`${service.title} - ${service.subtitle}`}
             >
-              {/* Gradient Border Effect - Simplified */}
+              {/* Gradient Border Effect */}
               <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r from-rose-500 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300
                 ${service.isMain ? 'opacity-5' : ''}`}
               />
@@ -188,26 +187,26 @@ const Services = () => {
                 </motion.div>
               )}
 
-              {/* Service Icon - Wrapped in motion.div instead of animating Image directly */}
-              <div className={`relative mb-6 ${service.isMain ? 'w-24 h-24' : 'w-20 h-20'} mx-auto`}>
-                <div className="absolute -inset-4 bg-gradient-to-r from-rose-500 to-blue-500 rounded-full opacity-20 blur-lg group-hover:opacity-30 transition-opacity duration-300"></div>
+              {/* Service Icon - FIXED: Better sizing and spacing */}
+              <div className={`relative mb-6 ${service.isMain ? 'w-20 h-20' : 'w-16 h-16'} mx-auto`}>
+                <div className="absolute -inset-3 bg-gradient-to-r from-rose-500 to-blue-500 rounded-full opacity-20 blur-lg group-hover:opacity-30 transition-opacity duration-300"></div>
                 <motion.div
-                  whileHover={{ scale: 1.05 }} // Reduced scale
-                  transition={{ duration: 0.2 }} // Faster transition
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
                   className="relative z-10"
                 >
                   <Image
                     src={service.icon}
                     className={`w-full h-full rounded-2xl object-cover border-2 border-white dark:border-gray-800 shadow-lg
-                      ${service.isMain ? 'p-4 bg-white dark:bg-gray-800' : 'p-3 bg-white/80 dark:bg-gray-700'}`}
+                      ${service.isMain ? 'p-3 bg-white dark:bg-gray-800' : 'p-2 bg-white/80 dark:bg-gray-700'}`}
                     alt={`${service.title} service icon`}
-                    width={service.isMain ? 96 : 80}
-                    height={service.isMain ? 96 : 80}
+                    width={service.isMain ? 80 : 64}
+                    height={service.isMain ? 80 : 64}
                   />
                 </motion.div>
               </div>
 
-              {/* Service Content */}
+              {/* Service Content - FIXED: Better spacing and hierarchy */}
               <div className="relative z-10 text-center">
                 {/* Badge for non-main services */}
                 {!service.isMain && (
@@ -216,29 +215,33 @@ const Services = () => {
                     whileInView={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.4, delay: 0.6 + (index * 0.1) }}
                     viewport={{ once: true }}
-                    className="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-xs font-medium mb-3 border border-gray-200 dark:border-gray-600"
+                    className="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-xs font-medium mb-4 border border-gray-200 dark:border-gray-600"
                   >
                     {service.badge}
                   </motion.span>
                 )}
 
-                <h3 className={`font-bold text-gray-800 dark:text-white mb-2
-                  ${service.isMain ? 'text-2xl' : 'text-xl'}`}
-                >
-                  {service.title}
-                </h3>
+                {/* Title and Subtitle - FIXED: Better spacing */}
+                <div className="mb-4">
+                  <h3 className={`font-bold text-gray-800 dark:text-white mb-2
+                    ${service.isMain ? 'text-xl' : 'text-lg'}`}
+                  >
+                    {service.title}
+                  </h3>
 
-                <p className="text-gray-600 dark:text-gray-400 text-sm font-medium mb-3">
-                  {service.subtitle}
-                </p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm font-medium">
+                    {service.subtitle}
+                  </p>
+                </div>
 
+                {/* Description - FIXED: Better line height and spacing */}
                 <p className={`text-gray-600 dark:text-gray-300 leading-relaxed mb-6
-                  ${service.isMain ? 'text-base' : 'text-sm'}`}
+                  ${service.isMain ? 'text-sm' : 'text-xs'} min-h-[60px]`}
                 >
                   {service.desc}
                 </p>
 
-                {/* Stats */}
+                {/* Stats - FIXED: Better spacing */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -249,14 +252,14 @@ const Services = () => {
                   {service.stats}
                 </motion.div>
 
-                {/* CTA Button */}
+                {/* CTA Button - FIXED: Consistent sizing */}
                 <motion.a
                   href={service.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.03 }} // Reduced scale
-                  whileTap={{ scale: 0.98 }} // Reduced scale
-                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-opacity-50
+                  target={service.link !== '#' ? '_blank' : '_self'}
+                  rel={service.link !== '#' ? 'noopener noreferrer' : ''}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-opacity-50
                     ${service.isMain
                       ? 'bg-gradient-to-r from-rose-500 to-blue-500 text-white shadow-lg hover:shadow-xl hover:from-rose-600 hover:to-blue-600'
                       : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:bg-gradient-to-r hover:from-rose-500 hover:to-blue-500 hover:text-white hover:border-transparent'
@@ -265,7 +268,7 @@ const Services = () => {
                 >
                   {service.isMain ? 'Explore Ecosystem' : 'Access Service'}
                   <svg
-                    className={`w-4 h-4 ${service.isMain ? '' : 'group-hover:translate-x-1'} transition-transform duration-200`}
+                    className={`w-3.5 h-3.5 ${service.isMain ? '' : 'group-hover:translate-x-1'} transition-transform duration-200`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -275,7 +278,7 @@ const Services = () => {
                 </motion.a>
               </div>
 
-              {/* Floating Elements - Removed complex animations that could cause errors */}
+              {/* Floating Elements */}
               {service.isMain && (
                 <div className="absolute inset-0 pointer-events-none">
                   <div className="absolute top-4 left-4 w-2 h-2 bg-rose-500 rounded-full opacity-30" />

@@ -104,7 +104,7 @@ const Footer = ({ isDarkMode }) => {
               Crafted with passion
             </p>
             <motion.a
-              href="https://ebenycodes.com"
+              href="https://ebenycodes.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}

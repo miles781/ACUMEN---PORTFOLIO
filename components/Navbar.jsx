@@ -11,13 +11,11 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const dropdownRef = useRef();
 
   const openMenu = () => {
-    sideMenuRef.current.style.transform = "translateX(0)";
     setIsMobileMenuOpen(true);
     document.body.style.overflow = 'hidden';
   };
 
   const closeMenu = () => {
-    sideMenuRef.current.style.transform = "translateX(100%)";
     setIsMobileMenuOpen(false);
     document.body.style.overflow = 'unset';
   };
@@ -334,156 +332,162 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
             </button>
           </div>
 
-          {/* Mobile Slide-up Modal Menu */}
-          {isMobileMenuOpen && (
+          {/* Mobile Slide-up Modal Menu - FIXED */}
+          <div 
+            className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
+              isMobileMenuOpen 
+                ? 'opacity-100 pointer-events-auto' 
+                : 'opacity-0 pointer-events-none'
+            }`}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation menu"
+            aria-hidden={!isMobileMenuOpen}
+          >
+            {/* Overlay */}
             <div 
-              className="fixed inset-0 z-40 md:hidden"
-              role="dialog"
-              aria-modal="true"
-              aria-label="Mobile navigation menu"
+              className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+                isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
+              }`}
+              onClick={closeMenu}
+            />
+            
+            {/* Slide-up panel - FIXED: Simplified animation */}
+            <div 
+              ref={sideMenuRef}
+              className={`absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-900 rounded-t-3xl shadow-2xl transform transition-transform duration-300 ease-out max-h-[85vh] overflow-y-auto ${
+                isMobileMenuOpen ? 'translate-y-0' : 'translate-y-full'
+              }`}
             >
-              {/* Overlay with animation */}
-              <div 
-                className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in-0 duration-300"
-                onClick={closeMenu}
-              />
-              
-              {/* Slide-up panel */}
-              <div 
-                ref={sideMenuRef}
-                className="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-900 rounded-t-3xl shadow-2xl transform transition-transform duration-500 ease-in-out max-h-[85vh] overflow-y-auto"
-                style={{ transform: 'translateY(0)' }}
-              >
-                {/* Header - Updated to text-only brand */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center">
-                    <div className="flex flex-col">
-                      <span className="font-bold text-xl bg-gradient-to-r from-rose-500 to-blue-500 bg-clip-text text-transparent tracking-tight uppercase animate-in fade-in-0 duration-500">
-                        Swift Empire
-                      </span>
-                    </div>
-                  </div>
-                  <button 
-                    onClick={closeMenu}
-                    className="p-3 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                    aria-label="Close menu"
-                  >
-                    <Image
-                      src={isDarkMode ? assets.close_white : assets.close_black}
-                      alt="close icon"
-                      className="w-5"
-                      width={20}
-                      height={20}
-                    />
-                  </button>
-                </div>
-
-                {/* Navigation Links */}
-                <div className="p-6">
-                  <nav className="space-y-3" role="menu">
-                    {navLinks.map((link, index) => (
-                      <a
-                        key={index}
-                        href={link.href}
-                        className="flex items-center gap-4 px-4 py-4 rounded-2xl text-gray-900 dark:text-white 
-                                 hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-all duration-300 font-semibold text-base border border-transparent hover:border-rose-200 dark:hover:border-rose-800 group"
-                        role="menuitem"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          closeMenu();
-                          const target = document.querySelector(link.href);
-                          if (target) {
-                            const navbarHeight = 70;
-                            const targetPosition = target.offsetTop - navbarHeight;
-                            setTimeout(() => {
-                              window.scrollTo({
-                                top: targetPosition,
-                                behavior: 'smooth'
-                              });
-                            }, 300);
-                          }
-                        }}
-                      >
-                        <div className="w-3 h-3 bg-gradient-to-r from-rose-500 to-blue-500 rounded-full group-hover:scale-125 transition-transform duration-300"></div>
-                        {link.name}
-                      </a>
-                    ))}
-                  </nav>
-                </div>
-
-                {/* Swift Ecosystem Section */}
-                <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/20">
-                  <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wide">
-                    Swift Ecosystem
-                  </h3>
-                  <div className="space-y-2">
-                    {ventures.map((venture, index) => (
-                      <a
-                        key={index}
-                        href={venture.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-800 
-                                 transition-colors text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
-                        onClick={closeMenu}
-                      >
-                        {venture.logo ? (
-                          <Image
-                            src={venture.logo}
-                            alt={`${venture.name} logo`}
-                            className="w-5 h-5 object-contain"
-                            width={20}
-                            height={20}
-                          />
-                        ) : (
-                          <div className="w-2 h-2 bg-gradient-to-r from-rose-500 to-blue-500 rounded-full flex-shrink-0"></div>
-                        )}
-                        <span className="font-medium text-sm">{venture.name}</span>
-                      </a>
-                    ))}
+              {/* Header - Updated to text-only brand */}
+              <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex items-center">
+                  <div className="flex flex-col">
+                    <span className="font-bold text-xl bg-gradient-to-r from-rose-500 to-blue-500 bg-clip-text text-transparent tracking-tight uppercase">
+                      Swift Empire
+                    </span>
                   </div>
                 </div>
+                <button 
+                  onClick={closeMenu}
+                  className="p-3 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  aria-label="Close menu"
+                >
+                  <Image
+                    src={isDarkMode ? assets.close_white : assets.close_black}
+                    alt="close icon"
+                    className="w-5"
+                    width={20}
+                    height={20}
+                  />
+                </button>
+              </div>
 
-                {/* Mobile Contact Button */}
-                <div className="p-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 sticky bottom-0">
-                  <a
-                    href="#contact"
-                    className="flex items-center justify-center gap-2 w-full px-6 py-3.5 
-                               bg-gradient-to-r from-rose-500 to-blue-500 text-white rounded-lg 
-                               font-medium text-sm hover:shadow-lg transition-all duration-300"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      closeMenu();
-                      const target = document.querySelector('#contact');
-                      if (target) {
-                        const navbarHeight = 70;
-                        const targetPosition = target.offsetTop - navbarHeight;
-                        setTimeout(() => {
-                          window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                          });
-                        }, 300);
-                      }
-                    }}
-                  >
-                    Contact Us
-                    <Image
-                      alt="arrow icon"
-                      src={assets.arrow_icon_dark}
-                      className="w-3"
-                      width={12}
-                      height={12}
-                    />
-                  </a>
+              {/* Navigation Links */}
+              <div className="p-6">
+                <nav className="space-y-3" role="menu">
+                  {navLinks.map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.href}
+                      className="flex items-center gap-4 px-4 py-4 rounded-2xl text-gray-900 dark:text-white 
+                               hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-all duration-300 font-semibold text-base border border-transparent hover:border-rose-200 dark:hover:border-rose-800 group"
+                      role="menuitem"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        closeMenu();
+                        const target = document.querySelector(link.href);
+                        if (target) {
+                          const navbarHeight = 70;
+                          const targetPosition = target.offsetTop - navbarHeight;
+                          setTimeout(() => {
+                            window.scrollTo({
+                              top: targetPosition,
+                              behavior: 'smooth'
+                            });
+                          }, 300);
+                        }
+                      }}
+                    >
+                      <div className="w-3 h-3 bg-gradient-to-r from-rose-500 to-blue-500 rounded-full group-hover:scale-125 transition-transform duration-300"></div>
+                      {link.name}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Swift Ecosystem Section */}
+              <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/20">
+                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wide">
+                  Swift Ecosystem
+                </h3>
+                <div className="space-y-2">
+                  {ventures.map((venture, index) => (
+                    <a
+                      key={index}
+                      href={venture.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-800 
+                               transition-colors text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                      onClick={closeMenu}
+                    >
+                      {venture.logo ? (
+                        <Image
+                          src={venture.logo}
+                          alt={`${venture.name} logo`}
+                          className="w-5 h-5 object-contain"
+                          width={20}
+                          height={20}
+                        />
+                      ) : (
+                        <div className="w-2 h-2 bg-gradient-to-r from-rose-500 to-blue-500 rounded-full flex-shrink-0"></div>
+                      )}
+                      <span className="font-medium text-sm">{venture.name}</span>
+                    </a>
+                  ))}
                 </div>
               </div>
+
+              {/* Mobile Contact Button */}
+              <div className="p-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 sticky bottom-0">
+                <a
+                  href="#contact"
+                  className="flex items-center justify-center gap-2 w-full px-6 py-3.5 
+                             bg-gradient-to-r from-rose-500 to-blue-500 text-white rounded-lg 
+                             font-medium text-sm hover:shadow-lg transition-all duration-300"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    closeMenu();
+                    const target = document.querySelector('#contact');
+                    if (target) {
+                      const navbarHeight = 70;
+                      const targetPosition = target.offsetTop - navbarHeight;
+                      setTimeout(() => {
+                        window.scrollTo({
+                          top: targetPosition,
+                          behavior: 'smooth'
+                        });
+                      }, 300);
+                    }
+                  }}
+                >
+                  Contact Us
+                  <Image
+                    alt="arrow icon"
+                    src={assets.arrow_icon_dark}
+                    className="w-3"
+                    width={12}
+                    height={12}
+                  />
+                </a>
+              </div>
             </div>
-          )}
+          </div>
         </nav>
       </div>
     </>
   );
 };
 
-export default Navbar; 
+export default Navbar;
