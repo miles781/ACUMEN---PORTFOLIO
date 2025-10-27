@@ -125,18 +125,17 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
             minHeight: '70px'
           }}
         >
-          {/* Left: Brand Recognition from Version 2 */}
+          {/* Left: Brand Recognition - Updated: Logo removed, gradient text only */}
           <div className="flex items-center gap-3 flex-shrink-0">
             <a 
               href="#top" 
-              className="flex items-center gap-3 hover:opacity-80 transition-opacity group"
+              className="flex items-center hover:opacity-80 transition-opacity group"
               aria-label="Swift Empire LTD - Go to homepage"
             >
-             
-              <div className="hidden sm:flex flex-col">
+              <div className="flex flex-col">
                 <span className={`font-bold transition-all duration-300 bg-gradient-to-r from-rose-500 to-blue-500 bg-clip-text text-transparent ${
-                  isScroll ? "text-sm" : "text-sm"
-                } dark:text-white text-gray-800 leading-tight tracking-tight`}>
+                  isScroll ? "text-lg sm:text-xl" : "text-xl sm:text-2xl"
+                } leading-tight tracking-tight`}>
                   SWIFT EMPIRE LTD
                 </span>
               </div>
@@ -341,13 +340,12 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                        transform translate-x-full transition-transform duration-300 ease-in-out 
                        md:hidden flex flex-col border-l border-gray-200/50 dark:border-gray-700/50"
           >
-            {/* Header with styling from Version 2 */}
+            {/* Header with styling from Version 2 - Updated: Removed "SWIFT EMPIRE LTD" text */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-              <div className="flex items-center gap-3">
-                
+              <div className="flex items-center">
                 <div className="flex flex-col">
-                  <span className="font-bold text-lg dark:text-white text-gray-900 tracking-tight">
-                    SWIFT EMPIRE LTD
+                  <span className="font-bold text-xl bg-gradient-to-r from-rose-500 to-blue-500 bg-clip-text text-transparent tracking-tight">
+                    Swift Empire
                   </span>
                 </div>
               </div>
@@ -480,4 +478,4 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   );
 };
 
-export default Navbar; 
+export default Navbar;
