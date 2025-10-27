@@ -10,12 +10,15 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const sideMenuRef = useRef();
   const dropdownRef = useRef();
 
+  // Sidebar functionality from Version 1
   const openMenu = () => {
+    sideMenuRef.current.style.transform = "translateX(0)";
     setIsMobileMenuOpen(true);
     document.body.style.overflow = 'hidden';
   };
 
   const closeMenu = () => {
+    sideMenuRef.current.style.transform = "translateX(100%)";
     setIsMobileMenuOpen(false);
     document.body.style.overflow = 'unset';
   };
@@ -52,7 +55,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
     };
   }, []);
 
-  // Scroll effect with improved performance
+  // Scroll effect with improved performance from Version 2
   useEffect(() => {
     const handleScroll = () => {
       setIsScroll(window.scrollY > 50);
@@ -103,12 +106,12 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
 
   return (
     <>
-      {/* Background shape for header */}
+      {/* Background shape for header from Version 2 */}
       <div className="fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] dark:hidden">
         <Image src={assets.header_bg_color} alt="" className="w-full" />
       </div>
 
-      {/* Main navbar with improved positioning */}
+      {/* Main navbar with improved positioning from Version 2 */}
       <div className="w-full fixed top-0 left-0 z-50">
         <nav
           className={`w-full px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between 
@@ -122,26 +125,25 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
             minHeight: '70px'
           }}
         >
-          {/* Left: Brand Recognition - Text Only */}
+          {/* Left: Brand Recognition from Version 2 */}
           <div className="flex items-center gap-3 flex-shrink-0">
             <a 
               href="#top" 
-              className="flex items-center gap-3 hover:opacity-80 transition-all duration-300 group relative"
-              aria-label="Swift Empire - Go to homepage"
+              className="flex items-center gap-3 hover:opacity-80 transition-opacity group"
+              aria-label="Swift Empire LTD - Go to homepage"
             >
-              <div className="flex flex-col">
-                <span className={`font-bold tracking-tight uppercase transition-all duration-300 bg-gradient-to-r from-rose-500 to-blue-500 bg-clip-text text-transparent ${
-                  isScroll ? "text-lg sm:text-xl opacity-90" : "text-xl sm:text-2xl"
-                } animate-in fade-in-0 duration-500`}>
-                  Swift Empire
+             
+              <div className="hidden sm:flex flex-col">
+                <span className={`font-bold transition-all duration-300 bg-gradient-to-r from-rose-500 to-blue-500 bg-clip-text text-transparent ${
+                  isScroll ? "text-sm" : "text-sm"
+                } dark:text-white text-gray-800 leading-tight tracking-tight`}>
+                  SWIFT EMPIRE LTD
                 </span>
-                {/* Hover underline effect */}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-rose-500 to-blue-500 transition-all duration-300 group-hover:w-full group-hover:opacity-100 opacity-0"></span>
               </div>
             </a>
           </div>
 
-          {/* Middle: Navigation Links + Ecosystem Dropdown */}
+          {/* Middle: Navigation Links + Ecosystem Dropdown from Version 2 */}
           <div className="hidden md:flex items-center gap-6 flex-1 justify-center">
             <ul className="flex items-center gap-6" role="menubar">
               {navLinks.map((link, index) => (
@@ -169,7 +171,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                 </li>
               ))}
               
-              {/* Swift Ecosystem Dropdown */}
+              {/* Swift Ecosystem Dropdown from Version 2 */}
               <li className="relative" ref={dropdownRef} role="none">
                 <button
                   onClick={toggleVenturesDropdown}
@@ -191,7 +193,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                   </svg>
                 </button>
 
-                {/* Dropdown Menu */}
+                {/* Dropdown Menu from Version 2 */}
                 {isVenturesDropdownOpen && (
                   <div 
                     className="absolute top-full left-0 mt-3 w-64 bg-white/95 dark:bg-gray-900/95 rounded-xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-xl z-50 py-2 animate-in fade-in-0 zoom-in-95 duration-300"
@@ -232,9 +234,9 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
             </ul>
           </div>
 
-          {/* Right: Interaction (Theme + Contact) */}
+          {/* Right: Interaction (Theme + Contact) from Version 2 */}
           <div className="hidden md:flex items-center gap-3 flex-shrink-0">
-            {/* Theme toggle - Simple ternary operator */}
+            {/* Theme toggle from Version 2 */}
             <button 
               onClick={() => setIsDarkMode((prev) => !prev)}
               className="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:scale-110 hover:shadow-lg"
@@ -259,7 +261,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
               )}
             </button>
 
-            {/* Contact button */}
+            {/* Contact button from Version 2 */}
             <a
               href="#contact"
               className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-rose-500 to-blue-500 text-white 
@@ -289,9 +291,9 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
             </a>
           </div>
 
-          {/* Mobile Navigation */}
+          {/* Mobile Navigation from Version 2 */}
           <div className="flex md:hidden items-center gap-2 flex-shrink-0">
-            {/* Theme toggle mobile - Simple ternary operator */}
+            {/* Theme toggle mobile from Version 2 */}
             <button 
               onClick={() => setIsDarkMode((prev) => !prev)}
               className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
@@ -332,162 +334,150 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
             </button>
           </div>
 
-          {/* Mobile Slide-up Modal Menu - FIXED */}
-          <div 
-            className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
-              isMobileMenuOpen 
-                ? 'opacity-100 pointer-events-auto' 
-                : 'opacity-0 pointer-events-none'
-            }`}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Mobile navigation menu"
-            aria-hidden={!isMobileMenuOpen}
+          {/* Mobile Sidebar Menu from Version 1 (with styling from Version 2) */}
+          <div
+            ref={sideMenuRef}
+            className="fixed top-0 right-0 w-80 h-screen z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl 
+                       transform translate-x-full transition-transform duration-300 ease-in-out 
+                       md:hidden flex flex-col border-l border-gray-200/50 dark:border-gray-700/50"
           >
-            {/* Overlay */}
-            <div 
-              className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
-                isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
-              }`}
-              onClick={closeMenu}
-            />
-            
-            {/* Slide-up panel - FIXED: Simplified animation */}
-            <div 
-              ref={sideMenuRef}
-              className={`absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-900 rounded-t-3xl shadow-2xl transform transition-transform duration-300 ease-out max-h-[85vh] overflow-y-auto ${
-                isMobileMenuOpen ? 'translate-y-0' : 'translate-y-full'
-              }`}
-            >
-              {/* Header - Updated to text-only brand */}
-              <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-                <div className="flex items-center">
-                  <div className="flex flex-col">
-                    <span className="font-bold text-xl bg-gradient-to-r from-rose-500 to-blue-500 bg-clip-text text-transparent tracking-tight uppercase">
-                      Swift Empire
-                    </span>
-                  </div>
-                </div>
-                <button 
-                  onClick={closeMenu}
-                  className="p-3 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  aria-label="Close menu"
-                >
-                  <Image
-                    src={isDarkMode ? assets.close_white : assets.close_black}
-                    alt="close icon"
-                    className="w-5"
-                    width={20}
-                    height={20}
-                  />
-                </button>
-              </div>
-
-              {/* Navigation Links */}
-              <div className="p-6">
-                <nav className="space-y-3" role="menu">
-                  {navLinks.map((link, index) => (
-                    <a
-                      key={index}
-                      href={link.href}
-                      className="flex items-center gap-4 px-4 py-4 rounded-2xl text-gray-900 dark:text-white 
-                               hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-all duration-300 font-semibold text-base border border-transparent hover:border-rose-200 dark:hover:border-rose-800 group"
-                      role="menuitem"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        closeMenu();
-                        const target = document.querySelector(link.href);
-                        if (target) {
-                          const navbarHeight = 70;
-                          const targetPosition = target.offsetTop - navbarHeight;
-                          setTimeout(() => {
-                            window.scrollTo({
-                              top: targetPosition,
-                              behavior: 'smooth'
-                            });
-                          }, 300);
-                        }
-                      }}
-                    >
-                      <div className="w-3 h-3 bg-gradient-to-r from-rose-500 to-blue-500 rounded-full group-hover:scale-125 transition-transform duration-300"></div>
-                      {link.name}
-                    </a>
-                  ))}
-                </nav>
-              </div>
-
-              {/* Swift Ecosystem Section */}
-              <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/20">
-                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wide">
-                  Swift Ecosystem
-                </h3>
-                <div className="space-y-2">
-                  {ventures.map((venture, index) => (
-                    <a
-                      key={index}
-                      href={venture.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-800 
-                               transition-colors text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
-                      onClick={closeMenu}
-                    >
-                      {venture.logo ? (
-                        <Image
-                          src={venture.logo}
-                          alt={`${venture.name} logo`}
-                          className="w-5 h-5 object-contain"
-                          width={20}
-                          height={20}
-                        />
-                      ) : (
-                        <div className="w-2 h-2 bg-gradient-to-r from-rose-500 to-blue-500 rounded-full flex-shrink-0"></div>
-                      )}
-                      <span className="font-medium text-sm">{venture.name}</span>
-                    </a>
-                  ))}
+            {/* Header with styling from Version 2 */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+              <div className="flex items-center gap-3">
+                
+                <div className="flex flex-col">
+                  <span className="font-bold text-lg dark:text-white text-gray-900 tracking-tight">
+                    SWIFT EMPIRE LTD
+                  </span>
                 </div>
               </div>
+              <button 
+                onClick={closeMenu}
+                className="p-3 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Close menu"
+              >
+                <Image
+                  src={isDarkMode ? assets.close_white : assets.close_black}
+                  alt="close icon"
+                  className="w-5"
+                  width={20}
+                  height={20}
+                />
+              </button>
+            </div>
 
-              {/* Mobile Contact Button */}
-              <div className="p-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 sticky bottom-0">
-                <a
-                  href="#contact"
-                  className="flex items-center justify-center gap-2 w-full px-6 py-3.5 
-                             bg-gradient-to-r from-rose-500 to-blue-500 text-white rounded-lg 
-                             font-medium text-sm hover:shadow-lg transition-all duration-300"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    closeMenu();
-                    const target = document.querySelector('#contact');
-                    if (target) {
-                      const navbarHeight = 70;
-                      const targetPosition = target.offsetTop - navbarHeight;
-                      setTimeout(() => {
-                        window.scrollTo({
-                          top: targetPosition,
-                          behavior: 'smooth'
-                        });
-                      }, 300);
-                    }
-                  }}
-                >
-                  Contact Us
-                  <Image
-                    alt="arrow icon"
-                    src={assets.arrow_icon_dark}
-                    className="w-3"
-                    width={12}
-                    height={12}
-                  />
-                </a>
+            {/* Navigation Links with styling from Version 2 */}
+            <div className="flex-1 px-6 py-4">
+              <nav className="space-y-2" role="menu">
+                {navLinks.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="flex items-center gap-4 px-4 py-4 rounded-2xl text-gray-900 dark:text-white 
+                             hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-all duration-300 font-semibold text-base border border-transparent hover:border-rose-200 dark:hover:border-rose-800 group"
+                    role="menuitem"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      closeMenu();
+                      const target = document.querySelector(link.href);
+                      if (target) {
+                        const navbarHeight = 70;
+                        const targetPosition = target.offsetTop - navbarHeight;
+                        setTimeout(() => {
+                          window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                          });
+                        }, 300);
+                      }
+                    }}
+                  >
+                    <div className="w-3 h-3 bg-gradient-to-r from-rose-500 to-blue-500 rounded-full group-hover:scale-125 transition-transform duration-300"></div>
+                    {link.name}
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            {/* Swift Ecosystem Section with styling from Version 2 */}
+            <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/20">
+              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wide">
+                Swift Ecosystem
+              </h3>
+              <div className="space-y-2">
+                {ventures.map((venture, index) => (
+                  <a
+                    key={index}
+                    href={venture.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-800 
+                             transition-colors text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                    onClick={closeMenu}
+                  >
+                    {venture.logo ? (
+                      <Image
+                        src={venture.logo}
+                        alt={`${venture.name} logo`}
+                        className="w-5 h-5 object-contain"
+                        width={20}
+                        height={20}
+                      />
+                    ) : (
+                      <div className="w-2 h-2 bg-gradient-to-r from-rose-500 to-blue-500 rounded-full flex-shrink-0"></div>
+                    )}
+                    <span className="font-medium text-sm">{venture.name}</span>
+                  </a>
+                ))}
               </div>
             </div>
+
+            {/* Mobile Contact Button with styling from Version 2 */}
+            <div className="p-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+              <a
+                href="#contact"
+                className="flex items-center justify-center gap-2 w-full px-6 py-3.5 
+                           bg-gradient-to-r from-rose-500 to-blue-500 text-white rounded-xl 
+                           font-semibold text-sm hover:shadow-xl transition-all duration-300 hover:from-rose-600 hover:to-blue-600"
+                onClick={(e) => {
+                  e.preventDefault();
+                  closeMenu();
+                  const target = document.querySelector('#contact');
+                  if (target) {
+                    const navbarHeight = 70;
+                    const targetPosition = target.offsetTop - navbarHeight;
+                    setTimeout(() => {
+                      window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                      });
+                    }, 300);
+                  }
+                }}
+              >
+                Contact Us
+                <Image
+                  alt="arrow icon"
+                  src={assets.arrow_icon_dark}
+                  className="w-3 transition-transform duration-300 group-hover:translate-x-1"
+                  width={12}
+                  height={12}
+                />
+              </a>
+            </div>
           </div>
+
+          {/* Mobile menu overlay from Version 1 */}
+          {isMobileMenuOpen && (
+            <div 
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+              onClick={closeMenu}
+            />
+          )}
         </nav>
       </div>
     </>
   );
 };
 
-export default Navbar;
+export default Navbar; 
